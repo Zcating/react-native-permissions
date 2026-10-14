@@ -1,6 +1,6 @@
 {
   "name": "react-native-permissions",
-  "version": "5.6.2",
+  "version": "5.6.2-harmony.0",
   "license": "MIT",
   "description": "An unified permissions API for React Native on iOS, Android and Windows",
   "author": "Mathieu Acthernoene <zoontek@gmail.com>",
@@ -58,6 +58,10 @@
     "/android",
     "!/android/build",
     "/dist",
+    "/harmony",
+    "!/harmony/permissions/build",
+    "!/harmony/permissions/.hvigor",
+    "!/harmony/permissions/oh_modules",
     "/ios",
     "/scripts/setup.rb",
     "/windows",
@@ -127,7 +131,7 @@
     "prettier": "^3.8.4",
     "prettier-plugin-organize-imports": "^4.3.0",
     "react": "19.2.3",
-    "react-native": "0.86.0",
+    "react-native": "0.86.3",
     "react-native-builder-bob": "^0.42.1",
     "typescript": "^6.0.3"
   },

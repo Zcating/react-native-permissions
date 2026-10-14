@@ -9,13 +9,26 @@ import RNPermissions, {
 
 const {SIRI, ...PERMISSIONS_IOS} = PERMISSIONS.IOS; // remove siri (certificate required)
 
-const PLATFORM_PERMISSIONS = Platform.select<
-  typeof PERMISSIONS.ANDROID | typeof PERMISSIONS_IOS | typeof PERMISSIONS.WINDOWS
->({
-  android: PERMISSIONS.ANDROID,
-  default: PERMISSIONS_IOS,
-  windows: PERMISSIONS.WINDOWS,
-});
+type ExamplePermissionMap =
+  | typeof PERMISSIONS.ANDROID
+  | typeof PERMISSIONS.HARMONY
+  | typeof PERMISSIONS_IOS
+  | typeof PERMISSIONS.WINDOWS;
+
+// RNOH reports Platform.OS as 'harmony', which is absent from RN's
+// PlatformOSType union, so Platform.select cannot be given a 'harmony' key
+// without a cast. Branching beforehand keeps the select spec unchanged.
+const IS_HARMONY = String(Platform.OS) === 'harmony';
+
+const PLATFORM_PERMISSIONS: ExamplePermissionMap = IS_HARMONY
+  ? PERMISSIONS.HARMONY
+  : Platform.select<
+      typeof PERMISSIONS.ANDROID | typeof PERMISSIONS_IOS | typeof PERMISSIONS.WINDOWS
+    >({
+      android: PERMISSIONS.ANDROID,
+      default: PERMISSIONS_IOS,
+      windows: PERMISSIONS.WINDOWS,
+    });
 
 const PERMISSIONS_VALUES: Permission[] = Object.values(PLATFORM_PERMISSIONS);
 

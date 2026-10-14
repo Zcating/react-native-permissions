@@ -4,3 +4,7 @@ Pods/
 
 example/android/app/build/
 example/ios/build/
+
+# HarmonyOS / ArkTS + C++ sources: prettier cannot infer a parser for
+# .ets / .cpp / .h files, and ArkTS formatting diverges from the JS style.
+harmony/

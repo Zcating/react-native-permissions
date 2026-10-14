@@ -1,4 +1,5 @@
 import type {AndroidPermissionMap} from './permissions.android';
+import type {HarmonyPermissionMap} from './permissions.harmony';
 import type {IOSPermissionMap} from './permissions.ios';
 import type {WindowsPermissionMap} from './permissions.windows';
 import type {ResultMap} from './results';
@@ -6,9 +7,10 @@ import type {ResultMap} from './results';
 type ValueOf<T> = T[keyof T];
 
 export type AndroidPermission = ValueOf<AndroidPermissionMap>;
+export type HarmonyPermission = ValueOf<HarmonyPermissionMap>;
 export type IOSPermission = ValueOf<IOSPermissionMap>;
 export type WindowsPermission = ValueOf<WindowsPermissionMap>;
-export type Permission = AndroidPermission | IOSPermission | WindowsPermission;
+export type Permission = AndroidPermission | HarmonyPermission | IOSPermission | WindowsPermission;
 export type PermissionStatus = ValueOf<ResultMap>;
 
 export type RationaleObject = {

@@ -1,5 +1,5 @@
 export const proxifyPermissions = <T extends Record<string, string>>(
-  platform: 'android' | 'ios' | 'windows',
+  platform: 'android' | 'harmony' | 'ios' | 'windows',
 ): T =>
   new Proxy({} as T, {
     get: (_, prop): string | symbol =>

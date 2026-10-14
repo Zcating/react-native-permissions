@@ -1,0 +1,44 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "react-native-permissions HarmonyOS example host"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Permissions demo entry ability"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "RNPermissions"
+    },
+    {
+      "name": "camera_reason",
+      "value": "Test the react-native-permissions camera permission flow"
+    },
+    {
+      "name": "microphone_reason",
+      "value": "Test the react-native-permissions microphone permission flow"
+    },
+    {
+      "name": "media_reason",
+      "value": "Test the react-native-permissions media permission flow"
+    },
+    {
+      "name": "location_reason",
+      "value": "Test the react-native-permissions location permission flow"
+    },
+    {
+      "name": "calendar_reason",
+      "value": "Test the react-native-permissions calendar permission flow"
+    },
+    {
+      "name": "contacts_reason",
+      "value": "Test the react-native-permissions contacts permission flow"
+    },
+    {
+      "name": "bluetooth_reason",
+      "value": "Test the react-native-permissions bluetooth permission flow"
+    }
+  ]
+}

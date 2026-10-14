@@ -1,0 +1,18 @@
+# Build & dependency artifacts
+oh_modules/
+node_modules/
+build/
+entry/build/
+entry/.test/
+entry/oh-package-lock.json5
+oh-package-lock.json5
+.hvigor/
+.cxx/
+.idea/
+*.har
+*.hap
+
+# Metro dev-server only; no prebuilt bundle is committed. Generate locally with:
+#   cd example && yarn react-native bundle --platform harmony \
+#     --dev true --entry-file index.js --bundle-output harmony/entry/src/main/resources/rawfile/bundle.harmony.js
+bundle.harmony.js

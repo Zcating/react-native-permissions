@@ -2,6 +2,7 @@ const path = require('path');
 const pkg = require('../package.json');
 
 const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
+const {createHarmonyMetroConfig} = require('@react-native-oh/react-native-harmony/metro.config');
 const escape = require('escape-string-regexp');
 
 const peerDependencies = Object.keys(pkg.peerDependencies);
@@ -28,7 +29,35 @@ const extraNodeModules = peerDependencies.reduce((acc, name) => {
 const config = {
   projectRoot: __dirname,
   watchFolders: [root],
-  resolver: {blockList, extraNodeModules},
+  resolver: {
+    blockList,
+    extraNodeModules,
+    // Modules under the root repo (watched via watchFolders, imported through
+    // the babel alias) resolve their own node_modules first, which is the root's
+    // -- and react-native is deliberately blocked there so a single version is
+    // loaded. Pointing Metro at the example's node_modules gives those modules
+    // (and the RNOH preset's redirected harmony lookups) somewhere to land.
+    nodeModulesPaths: [projectNodeModules],
+    // 'harmony' must be registered or Metro silently ignores the *.harmony.ts
+    // platform extensions: methods.harmony.ts and permissions.harmony.ts would
+    // never be picked, and every call would fall back to the src/methods.ts stub
+    // that returns RESULTS.UNAVAILABLE.
+    platforms: ['ios', 'android', 'harmony', 'native'],
+  },
 };
 
-module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+// The RNOH preset owns harmony resolution: it redirects `react-native` imports
+// to the harmony fork and falls back to ios for internals that ship only as
+// .ios.js/.android.js (e.g. ReactDevToolsSettingsManager). Merged last so its
+// resolver hooks win over the defaults above.
+//
+// The preset defaults reactNativeHarmonyPackageName to 'react-native-harmony',
+// which would rewrite imports to a package that is not installed. The published
+// name is scoped, so it must be passed explicitly.
+module.exports = mergeConfig(
+  getDefaultConfig(__dirname),
+  config,
+  createHarmonyMetroConfig({
+    reactNativeHarmonyPackageName: '@react-native-oh/react-native-harmony',
+  }),
+);

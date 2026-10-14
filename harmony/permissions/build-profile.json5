@@ -1,0 +1,14 @@
+{
+  "apiType": "stageMode",
+  "buildOption": {
+    // Note: C++ compilation happens at HAP build time, not during HAR packaging.
+    // The CMakeLists.txt under src/main/cpp/ is picked up by the consuming app's
+    // externalNativeOptions, which must point at this module's cpp dir.
+  },
+  "targets": [
+    {
+      "name": "default",
+      "runtimeOS": "HarmonyOS"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 import {defineConfig} from 'oxlint';
 
 export default defineConfig({
-  ignorePatterns: ['fetchWindowsCapabilites.js'],
+  ignorePatterns: ['fetchWindowsCapabilites.js', 'harmony/'],
   plugins: ['react', 'typescript'],
   categories: {
     correctness: 'error',

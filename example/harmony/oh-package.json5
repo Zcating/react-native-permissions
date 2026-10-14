@@ -1,0 +1,14 @@
+{
+  "modelVersion": "6.0.0",
+  "name": "rnpermissions-example",
+  "version": "1.0.0",
+  "description": "HarmonyOS host app for the react-native-permissions example.",
+  "dependencies": {
+    "react-native-permissions": "file:../../harmony/permissions.har",
+    "@rnoh/react-native-openharmony": "0.84.3"
+  },
+  "devDependencies": {
+    "@ohos/hypium": "1.0.24",
+    "@ohos/hamock": "1.0.0"
+  }
+}

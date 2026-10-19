@@ -30,7 +30,7 @@
     "react": "19.2.3",
     "react-native": "0.86.3",
     "react-native-paper": "^5.15.3",
-    "react-native-permissions": "link:../",
+    "@zcating/react-native-permissions": "link:../",
     "react-native-safe-area-context": "^5.8.0",
     "react-native-vector-icons": "^10.3.0"
   },

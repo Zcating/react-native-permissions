@@ -5,7 +5,7 @@ import RNPermissions, {
   PERMISSIONS,
   type NotificationOption,
   type Permission,
-} from 'react-native-permissions';
+} from '@zcating/react-native-permissions';
 
 const {SIRI, ...PERMISSIONS_IOS} = PERMISSIONS.IOS; // remove siri (certificate required)
 

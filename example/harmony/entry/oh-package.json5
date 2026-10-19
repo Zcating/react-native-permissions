@@ -1,12 +1,12 @@
 {
   "name": "entry",
   "version": "1.0.0",
-  "description": "react-native-permissions HarmonyOS example host",
+  "description": "@zcating/react-native-permissions HarmonyOS example host",
   "main": "",
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "react-native-permissions": "file:../../../harmony/permissions.har",
+    "@zcating/react-native-permissions": "file:../../../harmony/permissions.har",
     "@rnoh/react-native-openharmony": "0.84.3"
   },
   "devDependencies": {

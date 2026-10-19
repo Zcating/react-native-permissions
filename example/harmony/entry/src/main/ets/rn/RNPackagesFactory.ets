@@ -1,4 +1,4 @@
-import { PermissionsPackage } from 'react-native-permissions';
+import { PermissionsPackage } from '@zcating/react-native-permissions';
 import type { RNPackage, RNPackageContext } from '@rnoh/react-native-openharmony/ts';
 
 // react-native-permissions ships no RNOH autolinking manifest, so its package

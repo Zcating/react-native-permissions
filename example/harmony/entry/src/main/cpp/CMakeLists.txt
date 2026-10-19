@@ -18,7 +18,7 @@ set(OH_MODULES "${CMAKE_CURRENT_SOURCE_DIR}/../../../oh_modules")
 get_filename_component(OH_MODULES "${OH_MODULES}" REALPATH)
 set(OH_MODULES_DIR "${OH_MODULES}")
 set(RNOH_CPP_DIR "${OH_MODULES}/@rnoh/react-native-openharmony/src/main/cpp")
-set(PERMISSIONS_SRC "${OH_MODULES}/react-native-permissions/src/main/cpp")
+set(PERMISSIONS_SRC "${OH_MODULES}/@zcating/react-native-permissions/src/main/cpp")
 
 add_subdirectory("${RNOH_CPP_DIR}" ./rn)
 add_subdirectory("${PERMISSIONS_SRC}" ./rnoh_permissions)

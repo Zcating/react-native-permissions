@@ -1,5 +1,5 @@
 {
-  "name": "react-native-permissions",
+  "name": "@zcating/react-native-permissions",
   "version": "5.6.2-harmony.0",
   "license": "MIT",
   "description": "An unified permissions API for React Native on iOS, Android and Windows",
@@ -8,6 +8,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/zoontek/react-native-permissions.git"
+  },
+  "harmony": {
+    "alias": "react-native-permissions"
   },
   "keywords": [
     "react-native",

@@ -2,7 +2,7 @@ const path = require('path');
 const pkg = require('../package.json');
 
 const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
-const {createHarmonyMetroConfig} = require('@react-native-oh/react-native-harmony/metro.config');
+const {createHarmonyMetroConfig} = require('@zcating/react-native-harmony/metro.config');
 const escape = require('escape-string-regexp');
 
 const peerDependencies = Object.keys(pkg.peerDependencies);
@@ -58,6 +58,6 @@ module.exports = mergeConfig(
   getDefaultConfig(__dirname),
   config,
   createHarmonyMetroConfig({
-    reactNativeHarmonyPackageName: '@react-native-oh/react-native-harmony',
+    reactNativeHarmonyPackageName: '@zcating/react-native-harmony',
   }),
 );

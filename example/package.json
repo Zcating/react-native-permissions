@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@zcating/react-native-harmony": "0.88.0-rc.5-harmony.1",
-    "react": "19.2.3",
+    "react": "19.3.0",
     "react-native": "0.88.0-rc.5",
     "react-native-paper": "^5.15.3",
     "@zcating/react-native-permissions": "link:../",

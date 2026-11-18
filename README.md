@@ -170,6 +170,7 @@ Add all wanted permissions to your app `android/app/src/main/AndroidManifest.xml
   <uses-permission android:name="android.permission.CALL_PHONE" />
   <uses-permission android:name="android.permission.CAMERA" />
   <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+  <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
   <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES" />
   <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
   <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
@@ -447,6 +448,7 @@ PERMISSIONS.ANDROID.BODY_SENSORS_BACKGROUND;
 PERMISSIONS.ANDROID.CALL_PHONE;
 PERMISSIONS.ANDROID.CAMERA;
 PERMISSIONS.ANDROID.GET_ACCOUNTS;
+PERMISSIONS.ANDROID.MANAGE_EXTERNAL_STORAGE;
 PERMISSIONS.ANDROID.NEARBY_WIFI_DEVICES;
 PERMISSIONS.ANDROID.POST_NOTIFICATIONS;
 PERMISSIONS.ANDROID.PROCESS_OUTGOING_CALLS;
@@ -854,18 +856,19 @@ requestMultiple([PERMISSIONS.IOS.CAMERA, PERMISSIONS.IOS.FACE_ID]).then((statuse
 
 #### openSettings
 
-Open application / alarms / notifications / fullscreen settings (default to `application`).
+Open application / alarms / notifications / fullscreen / all-files settings (default to `application`).
 
 > [!NOTE]
 >
 > - `notifications` settings are only available on Android 8+ and iOS 15.4+
 > - `alarms` settings are only available on Android 12+
 > - `fullscreen` settings are only available on Android 14+
+> - `all_files` settings are only available on Android 11+ (used to grant `MANAGE_EXTERNAL_STORAGE`)
 > - If a choice is not available, it fallbacks to `application` settings
 
 ```ts
 function openSettings(
-  type?: 'application' | 'alarms' | 'fullscreen' | 'notifications',
+  type?: 'application' | 'alarms' | 'fullscreen' | 'notifications' | 'all_files',
 ): Promise<void>;
 ```
 
@@ -874,6 +877,13 @@ import {openSettings} from 'react-native-permissions';
 
 openSettings('application').catch(() => console.warn('Cannot open app settings'));
 ```
+
+> [!NOTE]
+>
+> `MANAGE_EXTERNAL_STORAGE` is a special Android permission. `check` reads its actual
+> state through `Environment.isExternalStorageManager()`, while `request` returns
+> `blocked` because the user has to grant it from the all-files access settings screen.
+> Use `openSettings('all_files')` to send them there.
 
 #### canScheduleExactAlarms (Android)
 

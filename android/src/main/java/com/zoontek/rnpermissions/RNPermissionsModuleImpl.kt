@@ -72,6 +72,11 @@ object RNPermissionsModuleImpl {
           setAction(Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT)
           setData(Uri.parse("package:${packageName}"))
         }
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && type == "all_files" -> Intent().apply {
+          setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+          setData(Uri.parse("package:${packageName}"))
+          putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
+        }
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && type == "notifications" -> Intent().apply {
           setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
           putExtra(Settings.EXTRA_APP_PACKAGE, packageName)

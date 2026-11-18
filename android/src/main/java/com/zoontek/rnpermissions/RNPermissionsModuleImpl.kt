@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import android.provider.Settings
 import android.util.SparseArray
 
@@ -29,6 +30,7 @@ object RNPermissionsModuleImpl {
   private var requestCode = 0
 
   private const val ERROR_INVALID_ACTIVITY = "E_INVALID_ACTIVITY"
+  private const val MANAGE_EXTERNAL_STORAGE = "android.permission.MANAGE_EXTERNAL_STORAGE"
   private const val GRANTED = "granted"
   private const val DENIED = "denied"
   private const val UNAVAILABLE = "unavailable"
@@ -46,6 +48,7 @@ object RNPermissionsModuleImpl {
     "android.permission.BLUETOOTH_CONNECT" to 31,
     "android.permission.BLUETOOTH_SCAN" to 31,
     "android.permission.BODY_SENSORS_BACKGROUND" to 33,
+    "android.permission.MANAGE_EXTERNAL_STORAGE" to 30,
     "android.permission.NEARBY_WIFI_DEVICES" to 33,
     "android.permission.READ_MEDIA_AUDIO" to 33,
     "android.permission.READ_MEDIA_IMAGES" to 33,
@@ -58,6 +61,12 @@ object RNPermissionsModuleImpl {
   private fun isPermissionAvailable(permission: String): Boolean =
     (permission.startsWith("android.") || permission.startsWith("com.android")) &&
       Build.VERSION.SDK_INT >= (minimumApi[permission] ?: Build.VERSION_CODES.BASE)
+
+  // MANAGE_EXTERNAL_STORAGE is not a runtime permission: it can only be granted
+  // from the all-files access settings screen, so it must be checked through
+  // Environment.isExternalStorageManager() instead of checkSelfPermission().
+  private fun isManageExternalStorageGranted(): Boolean =
+    Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager()
 
   fun openSettings(reactContext: ReactApplicationContext, type: String?, promise: Promise) {
     try {
@@ -123,6 +132,10 @@ object RNPermissionsModuleImpl {
       return promise.resolve(UNAVAILABLE)
     }
 
+    if (permission == MANAGE_EXTERNAL_STORAGE) {
+      return promise.resolve(if (isManageExternalStorageGranted()) GRANTED else DENIED)
+    }
+
     val context = reactContext.baseContext
 
     if (context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED) {
@@ -159,6 +172,8 @@ object RNPermissionsModuleImpl {
         permission,
         when {
           !isPermissionAvailable(permission) -> UNAVAILABLE
+          permission == MANAGE_EXTERNAL_STORAGE ->
+            if (isManageExternalStorageGranted()) GRANTED else DENIED
           context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED -> GRANTED
           else -> DENIED
         }
@@ -177,6 +192,12 @@ object RNPermissionsModuleImpl {
   ) {
     if (!isPermissionAvailable(permission)) {
       return promise.resolve(UNAVAILABLE)
+    }
+
+    // There is no runtime dialog for this permission; the user has to grant it
+    // from the all-files access settings screen (see openSettings("all_files")).
+    if (permission == MANAGE_EXTERNAL_STORAGE) {
+      return promise.resolve(if (isManageExternalStorageGranted()) GRANTED else BLOCKED)
     }
 
     val context = reactContext.baseContext
@@ -243,6 +264,9 @@ object RNPermissionsModuleImpl {
 
       if (!isPermissionAvailable(permission)) {
         output.putString(permission, UNAVAILABLE)
+        checkedPermissionsCount++
+      } else if (permission == MANAGE_EXTERNAL_STORAGE) {
+        output.putString(permission, if (isManageExternalStorageGranted()) GRANTED else BLOCKED)
         checkedPermissionsCount++
       } else if (context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED) {
         output.putString(permission, GRANTED)

@@ -1,11 +1,11 @@
-import {Fragment, useState, type ReactElement} from 'react';
-import {Platform, ScrollView, StatusBar, View} from 'react-native';
-import {Appbar, Button, Divider, Snackbar, Text} from 'react-native-paper';
 import RNPermissions, {
   PERMISSIONS,
   type NotificationOption,
   type Permission,
 } from '@zcating/react-native-permissions';
+import {Fragment, useState, type ReactElement} from 'react';
+import {Platform, ScrollView, StatusBar, View} from 'react-native';
+import {Appbar, Button, Divider, Snackbar, Text} from 'react-native-paper';
 
 const {SIRI, ...PERMISSIONS_IOS} = PERMISSIONS.IOS; // remove siri (certificate required)
 

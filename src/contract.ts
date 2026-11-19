@@ -19,7 +19,9 @@ export type Contract = {
   checkNotifications(): Promise<NotificationsResponse>;
   openContactPicker(): Promise<void>;
   openPhotoPicker(): Promise<void>;
-  openSettings(type?: 'application' | 'alarms' | 'fullscreen' | 'notifications' | 'all_files'): Promise<void>;
+  openSettings(
+    type?: 'application' | 'alarms' | 'fullscreen' | 'notifications' | 'all_files',
+  ): Promise<void>;
   request(permission: Permission, rationale?: Rationale): Promise<PermissionStatus>;
   requestLocationAccuracy(options: LocationAccuracyOptions): Promise<LocationAccuracy>;
   requestMultiple<P extends Permission[]>(
